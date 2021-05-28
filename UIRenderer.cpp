@@ -17,6 +17,9 @@ void UIRenderer::Init()
 	memDC = CreateCompatibleDC(hdc);
 	hBit = (HBITMAP)CreateCompatibleBitmap(hdc, width, height);
 	oBit = (HBITMAP)SelectObject(memDC, hBit);
+	hBit = (HBITMAP)CreateCompatibleBitmap(hdc, width, height);
+	SelectObject(alphaMemDC, hBit);
+
 	ReleaseDC(_hWnd, hdc);
 	transform->SetX(0);
 	transform->SetY(0);
@@ -35,6 +38,10 @@ void UIRenderer::Init(const char* filename, int width, int height)
 	memDC = CreateCompatibleDC(hdc);
 	hBit = (HBITMAP)LoadImage(_hInstance, filename, IMAGE_BITMAP, width, height, LR_LOADFROMFILE);
 	oBit = (HBITMAP)SelectObject(memDC, hBit);
+
+	hBit = CreateCompatibleBitmap(hdc, width, height);
+	SelectObject(alphaMemDC, hBit);
+
 	ReleaseDC(_hWnd, hdc);
 	transform->SetX(0);
 	transform->SetY(0);
@@ -53,18 +60,19 @@ void UIRenderer::Render()
 {
 	int startX = CAMERAMANAGER->mainCam->transform->GetX() + transform->GetX() - width/2;
 	int startY = CAMERAMANAGER->mainCam->transform->GetY() + transform->GetY() - height / 2;
-	//GdiTransparentBlt(
-	//	_backBuffer->getMemDC(),					//복사될 영역의 DC
-	//	startX,				//복사될 좌표(left)
-	//	startY,					//복사될 좌표(top)
-	//	width,					//복사될 크기 (가로크기)
-	//	height,					//복사될 크기 (세로크기)
-	//	memDC,					//복사해올 DC 
-	//	0, 0,					//복사해올 시작좌표(left, top)
-	//	width,					//복사해올 가로크기
-	//	height,					//복사해올 세로크기
-	//	RGB(255, 0, 255)		//복사할때 제외할 픽셀값
-	//);
+	BitBlt(alphaMemDC, 0, 0, width, height, _backBuffer->getMemDC(), startX, startY, SRCCOPY);
+	GdiTransparentBlt(
+		alphaMemDC,					//복사될 영역의 DC
+		0,				//복사될 좌표(left)
+		0,					//복사될 좌표(top)
+		width,					//복사될 크기 (가로크기)
+		height,					//복사될 크기 (세로크기)
+		memDC,					//복사해올 DC 
+		0, 0,					//복사해올 시작좌표(left, top)
+		width,					//복사해올 가로크기
+		height,					//복사해올 세로크기
+		RGB(255, 0, 255)		//복사할때 제외할 픽셀값
+	);
 	AlphaBlend(_backBuffer->getMemDC(),			//출력할 곳의 DC
 		startX,					//출력할 DC에서 그림의 찍을 좌표 x
 		startY,					//출력할 DC에서 그림의 찍을 좌표 y
@@ -87,6 +95,10 @@ void UIRenderer::Resize(int width, int height)
 	hBit = (HBITMAP)CreateCompatibleBitmap(hdc, width, height);
 	SelectObject(memDC, oBit);
 	oBit = (HBITMAP)SelectObject(memDC, hBit);
+
+	hBit = (HBITMAP)CreateCompatibleBitmap(hdc, width, height);
+	SelectObject(alphaMemDC, hBit);
+
 }
 
 void UIRenderer::SetAlpha(int alpha)

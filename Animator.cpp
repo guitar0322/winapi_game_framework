@@ -25,7 +25,7 @@ void Animator::Update()
 		return;
 	frameStack++;
 	if (frameStack == curClip->frameTerm) {
-		BitBlt(renderer->image, 0, 0, curClip->frameWidth, curClip->frameHeight,
+		BitBlt(renderer->memDC, 0, 0, curClip->frameWidth, curClip->frameHeight,
 			curClip->wholeDC, curClip->frameWidth * curClip->currentFrame, 0, SRCCOPY);
 		curClip->currentFrame++;
 		if (curClip->currentFrame == curClip->frameNum) {
@@ -49,7 +49,7 @@ void Animator::SetClip(AnimationClip* newClip)
 	curClip->currentFrame = 0;
 	frameStack = 0;
 	renderer->Resize(curClip->frameWidth, curClip->frameHeight);
-	BitBlt(renderer->image, 0, 0, curClip->frameWidth, curClip->frameHeight,
+	BitBlt(renderer->memDC, 0, 0, curClip->frameWidth, curClip->frameHeight,
 		curClip->wholeDC, 0, 0, SRCCOPY);
 }
 
@@ -59,7 +59,7 @@ void Animator::SetClip(AnimationClip* newClip, int startFrame)
 	curClip->currentFrame = startFrame;
 	frameStack = 0;
 	renderer->Resize(curClip->frameWidth, curClip->frameHeight);
-	BitBlt(renderer->image, 0, 0, curClip->frameWidth, curClip->frameHeight,
+	BitBlt(renderer->memDC, 0, 0, curClip->frameWidth, curClip->frameHeight,
 		curClip->wholeDC, curClip->currentFrame * curClip->frameWidth, 0, SRCCOPY);
 }
 

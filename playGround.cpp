@@ -24,32 +24,20 @@ HRESULT playGround::init()
 	_rockMan->transform->SetX(_rockMan->transform->GetX() - 300);
 	_rockMan->transform->SetY(_rockMan->transform->GetY() + 150);
 
-	_smallObj = new GameObject();
-	_smallObj->AddComponent(new Renderer());
-	_smallObj->GetComponent<Renderer>()->Init("small_object.bmp", 98, 224);
-	_smallObj->AddComponent(new BoxCollider());
-	_smallObj->GetComponent<BoxCollider>()->Init();
-	_smallObj->GetComponent<BoxCollider>()->SetSize(98, 224);
-	_smallObj->transform->SetPosition(_rockMan->transform->GetX() + 150, _rockMan->transform->GetY() - 62);
-	_smallObj->AddComponent(new ObjectInfo(false));
+	_smallObj.GetComponent<Renderer>()->Init("small_object.bmp", 98, 224);
+	_smallObj.GetComponent<BoxCollider>()->SetSize(98, 224);
+	_smallObj.transform->SetPosition(_rockMan->transform->GetX() + 150, _rockMan->transform->GetY() - 62);
+	_smallObj.AddComponent(new ObjectInfo(false));
 
-	_bigObj = new GameObject();
-	_bigObj->AddComponent(new Renderer());
-	_bigObj->GetComponent<Renderer>()->Init("big_object.bmp", 104, 320);
-	_bigObj->AddComponent(new BoxCollider());
-	_bigObj->GetComponent<BoxCollider>()->Init();
-	_bigObj->GetComponent<BoxCollider>()->SetSize(104, 320);
-	_bigObj->transform->SetPosition(_rockMan->transform->GetX() + 500, _rockMan->transform->GetY() - 110);
-	_bigObj->AddComponent(new ObjectInfo(false));
+	_bigObj.GetComponent<Renderer>()->Init("big_object.bmp", 104, 320);
+	_bigObj.GetComponent<BoxCollider>()->SetSize(104, 320);
+	_bigObj.transform->SetPosition(_rockMan->transform->GetX() + 500, _rockMan->transform->GetY() - 110);
+	_bigObj.AddComponent(new ObjectInfo(false));
 
-	_airObj = new GameObject();
-	_airObj->AddComponent(new Renderer());
-	_airObj->GetComponent<Renderer>()->Init("air_object.bmp", 128, 72);
-	_airObj->AddComponent(new BoxCollider());
-	_airObj->GetComponent<BoxCollider>()->Init();
-	_airObj->GetComponent<BoxCollider>()->SetSize(128, 72);
-	_airObj->transform->SetPosition(_rockMan->transform->GetX() + 800, _rockMan->transform->GetY() - 200);
-	_airObj->AddComponent(new ObjectInfo(true));
+	_airObj.GetComponent<Renderer>()->Init("air_object.bmp", 128, 72);
+	_airObj.GetComponent<BoxCollider>()->SetSize(128, 72);
+	_airObj.transform->SetPosition(_rockMan->transform->GetX() + 800, _rockMan->transform->GetY() - 200);
+	_airObj.AddComponent(new ObjectInfo(true));
 
 	_ground = new GameObject();
 	_ground->AddComponent(new BoxCollider());
@@ -59,6 +47,7 @@ HRESULT playGround::init()
 	_ground->AddComponent(new ObjectInfo(false));
 
 	_mainCam.camera->Shake(3, 2);
+	_rockMan->transform->AddChild(&_mainCam);
 	_ui.uiRenderer->Resize(WINSIZEX, WINSIZEY);
 	return S_OK;
 }
@@ -85,9 +74,9 @@ void playGround::update()
 	oldTime = curTime;
 	curTime = clock();
 	_rockMan->Update();
-	_smallObj->Update();
-	_bigObj->Update();
-	_airObj->Update();
+	_smallObj.Update();
+	_bigObj.Update();
+	_airObj.Update();
 	_ground->Update();
 	_mainCam.Update();
 	deltaTime = curTime - oldTime;
@@ -107,9 +96,9 @@ void playGround::render(HDC hdc)
 	// 위에 건들지마라
 	//================제발 이 사이에 좀 그립시다==========================
 	_rockMan->Render();
-	_smallObj->Render();
-	_bigObj->Render();
-	_airObj->Render();
+	_smallObj.Render();
+	_bigObj.Render();
+	_airObj.Render();
 	_ground->Render();
 	//==================================================
 	//여기도 건들지마라

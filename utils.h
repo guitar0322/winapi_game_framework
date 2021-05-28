@@ -15,6 +15,9 @@
 #include "Camera.h"
 #include "UIBase.h"
 #include "Text.h"
+#include "Box.h"
+#include "Zone.h"
+#include "ImageObject.h"
 #include <typeinfo>
 
 typedef RECT ELLIPSE;

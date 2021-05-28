@@ -5,7 +5,7 @@ class UIRenderer :
 {
 private:
     HBITMAP hBit, oBit;
-    HDC memDC;
+    HDC memDC, alphaMemDC;
     BLENDFUNCTION blendFunction;
     int width;
     int height;

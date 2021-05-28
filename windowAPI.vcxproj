@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationClip.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Cam.h" />
     <ClInclude Include="Camera.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="ImageObject.h" />
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="ObjectInfo.h" />
     <ClInclude Include="ParticleSystem.h" />
@@ -178,10 +180,12 @@
     <ClInclude Include="UIBase.h" />
     <ClInclude Include="UIRenderer.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="Zone.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationClip.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Cam.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -192,6 +196,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="ObjectInfo.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
@@ -212,6 +217,7 @@
     <ClCompile Include="UIRenderer.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="winMain.cpp" />
+    <ClCompile Include="Zone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="windowAPI.rc" />

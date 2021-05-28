@@ -10,9 +10,9 @@ public:
 	int frame;
 	int x, y;
 	RockMan* _rockMan;
-	GameObject* _smallObj;
-	GameObject* _bigObj;
-	GameObject* _airObj;
+	Box _smallObj;
+	Box _bigObj;
+	Box _airObj;
 	GameObject* _ground;
 	Cam _mainCam;
 	UIBase _ui;
