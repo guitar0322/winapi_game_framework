@@ -31,8 +31,14 @@ void Animator::Update()
 		if (curClip->currentFrame == curClip->frameNum) {
 			if (curClip->isLoop == true)
 				curClip->currentFrame = 0;
-			else
+			else {
 				curClip->currentFrame = curClip->frameNum - 1;
+				for (transactionIter = transactionMap.begin(); transactionIter != transactionMap.end(); transactionIter++) {
+					if (transactionIter->second.startClip == curClip) {
+						SetClip(transactionIter->second.nextClip);
+					}
+				}
+			}
 		}
 		frameStack = 0;
 	}
@@ -45,6 +51,7 @@ void Animator::Render()
 
 void Animator::SetClip(AnimationClip* newClip)
 {
+	preClip = curClip;
 	curClip = newClip;
 	curClip->currentFrame = 0;
 	frameStack = 0;
@@ -55,6 +62,7 @@ void Animator::SetClip(AnimationClip* newClip)
 
 void Animator::SetClip(AnimationClip* newClip, int startFrame)
 {
+	preClip = curClip;
 	curClip = newClip;
 	curClip->currentFrame = startFrame;
 	frameStack = 0;
@@ -76,4 +84,10 @@ AnimationClip* Animator::GetClip(string clipName)
 		return iter->second;
 	}
 	return nullptr;
+}
+
+void Animator::AddTransaction(string name, AnimationClip* startClip, AnimationClip* nextClip)
+{
+	TRANSACTION newTransaction = { startClip, nextClip };
+	transactionMap.insert(make_pair( name, newTransaction));
 }

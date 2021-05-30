@@ -5,6 +5,7 @@ void PlayerControler::Init()
 {
 	jumpPower = 0;
 	gravity = 0.3f;
+	dir = false;//false 면 오른쪽 true면 왼쪽
 	isJump = false;
 	animator = gameObject->GetComponent<Animator>();
 	state = IDLE_RIGHT;
@@ -34,6 +35,7 @@ void PlayerControler::Update()
 		if (KEYMANAGER->isOnceKeyDown(VK_LEFT)) {
 			animator->SetClip(animator->GetClip("run_left"));
 			state = RUN_LEFT;
+			dir = true;
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_SPACE) && isJump == false) {
 			if (KEYMANAGER->isStayKeyDown(VK_DOWN)) {
@@ -59,6 +61,7 @@ void PlayerControler::Update()
 		if (KEYMANAGER->isOnceKeyDown(VK_RIGHT)) {
 			animator->SetClip(animator->GetClip("run_right"));
 			state = RUN_RIGHT;
+			dir = false;
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_SPACE) && isJump == false) {
 			if (KEYMANAGER->isStayKeyDown(VK_DOWN)) {
@@ -104,19 +107,22 @@ void PlayerControler::Update()
 		if (KEYMANAGER->isOnceKeyDown(VK_LEFT)) {
 			state = JUMP_LEFT;
 			animator->SetClip(animator->GetClip("jump_left"), animator->curClip->currentFrame);
+			dir = true;
 		}
 		break;
 	case JUMP_LEFT:
 		if (KEYMANAGER->isOnceKeyDown(VK_RIGHT)) {
 			state = JUMP_RIGHT;
 			animator->SetClip(animator->GetClip("jump_right"), animator->curClip->currentFrame);
+			dir = false;
 		}
 		break;
 	case WALL_RIGHT:
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT)) {
 			isWall = false;
-			state = JUMP_LEFT;
-			animator->SetClip(animator->GetClip("jump_left"));
+			state = FALL_LEFT;
+			animator->SetClip(animator->GetClip("fall_left"));
+			dir = true;
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_SPACE)) {
 			isJump = true;
@@ -130,8 +136,9 @@ void PlayerControler::Update()
 	case WALL_LEFT:
 		if (KEYMANAGER->isOnceKeyUp(VK_LEFT)) {
 			isWall = false;
-			state = JUMP_RIGHT;
-			animator->SetClip(animator->GetClip("jump_right"));
+			state = FALL_RIGHT;
+			animator->SetClip(animator->GetClip("fall_right"));
+			dir = false;
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_SPACE)) {
 			isJump = true;
@@ -178,15 +185,28 @@ void PlayerControler::Update()
 		}
 	}
 	if (isJump == true && isWall == false) {
+		jumpPower -= gravity;
+		if (jumpPower < 0 && jumpPower >= -gravity) {
+			if (dir == false) {
+				isWall = false;
+				state = FALL_RIGHT;
+				animator->SetClip(animator->GetClip("fall_right"));
+			}
+			else {
+				isWall = false;
+				state = FALL_LEFT;
+				animator->SetClip(animator->GetClip("fall_left"));
+			}
+		}
 		if (transform->MoveY(-jumpPower) == false && isDive == false) {
 			isJump = false;
 			jumpPower = 0;
-			if (state == JUMP_RIGHT || state == WALL_LEFT) {
-				animator->SetClip(animator->GetClip("idle_right"));
+			if (state == FALL_RIGHT) {
+				animator->SetClip(animator->GetClip("ground_right"));
 				state = IDLE_RIGHT;
 			}
-			else if (state == JUMP_LEFT || state == WALL_RIGHT) {
-				animator->SetClip(animator->GetClip("idle_left"));
+			else if (state == FALL_LEFT) {
+				animator->SetClip(animator->GetClip("ground_left"));
 				state = IDLE_LEFT;
 			}
 		}
@@ -201,7 +221,7 @@ void PlayerControler::Update()
 			if (wallJumpPower > 0)
 				wallJumpPower = 0;
 		}
-		jumpPower -= gravity;
+
 	}
 	sprintf_s(debug[1], "%d", isJump);
 	DebugState();

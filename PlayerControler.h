@@ -9,7 +9,9 @@ enum enumState {
     JUMP_RIGHT,
     JUMP_LEFT,
     WALL_RIGHT,
-    WALL_LEFT
+    WALL_LEFT,
+    FALL_RIGHT,
+    FALL_LEFT
 };
 class PlayerControler :
     public Component
@@ -26,6 +28,7 @@ public:
     bool isJump;
     bool isWall;
     bool isDive;
+    bool dir;
     int diveTime;
     RECT groundRc;
     void Init();

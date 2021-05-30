@@ -53,11 +53,6 @@ void BoxCollider::Update()
 	prevCol.clear();
 	prevCol.assign(vCol.begin(), vCol.end());
 	vCol.clear();
-	//2 3 4 prevCol
-	//1 2 3 vCol
-
-	//1 2 3 prevCol
-	//2 3 4
 }
 bool BoxCollider::CheckCollision(float tempX, float tempY) {
 	if (enable == false) {
@@ -78,6 +73,7 @@ bool BoxCollider::CheckCollision(float tempX, float tempY) {
 				else {
 					deltaY > 0 ? marginY = deltaY - h : marginY = deltaY + h;
 				}
+				gameObject->OnCollision(COLLIDERMANAGER->colliderList[i]->gameObject);
 				transform->Move(marginX, marginY);
 				return true;
 			}

@@ -173,6 +173,7 @@
     <ClInclude Include="RockMan.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TagManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Transform.h" />
@@ -210,6 +211,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TagManager.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TriggerTest.cpp" />

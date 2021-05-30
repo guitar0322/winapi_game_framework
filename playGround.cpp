@@ -46,8 +46,7 @@ HRESULT playGround::init()
 	_ground->transform->SetPosition(_rockMan->transform->GetX() + 300, _rockMan->transform->GetY() + 100);
 	_ground->AddComponent(new ObjectInfo(false));
 
-	_mainCam.camera->Shake(3, 2);
-	_rockMan->transform->AddChild(&_mainCam);
+	//_mainCam.camera->Shake(3, 2);
 	_ui.uiRenderer->Resize(WINSIZEX, WINSIZEY);
 	return S_OK;
 }
@@ -63,14 +62,14 @@ void playGround::release()
 void playGround::update()
 {
 	gameNode::update();
-	_camShakeFrame++;
-	if (_camShakeFrame == 100) {
-		_mainCam.camera->ShakeOff();
-	}
-	if (_camShakeFrame == 200) {
-		_camShakeFrame = 0;
-		_mainCam.camera->Shake(6, 2); 
-	}
+	//_camShakeFrame++;
+	//if (_camShakeFrame == 100) {
+	//	_mainCam.camera->ShakeOff();
+	//}
+	//if (_camShakeFrame == 200) {
+	//	_camShakeFrame = 0;
+	//	_mainCam.camera->Shake(6, 2); 
+	//}
 	oldTime = curTime;
 	curTime = clock();
 	_rockMan->Update();
@@ -80,13 +79,13 @@ void playGround::update()
 	_ground->Update();
 	_mainCam.Update();
 	deltaTime = curTime - oldTime;
-	_alphaFrame++;
-	if (_alphaFrame == 5) {
-		_alphaFrame = 0;
-		if (_ui.uiRenderer->alpha > 0)
-			_ui.uiRenderer->SetAlpha(_ui.uiRenderer->alpha - 1);
-	}
-	_ui.Update();
+	//_alphaFrame++;
+	//if (_alphaFrame == 5) {
+	//	_alphaFrame = 0;
+	//	if (_ui.uiRenderer->alpha > 0)
+	//		_ui.uiRenderer->SetAlpha(_ui.uiRenderer->alpha - 1);
+	//}
+	//_ui.Update();
 }
 
 //여기에다 그려라 좀! 쫌!
@@ -106,7 +105,7 @@ void playGround::render(HDC hdc)
 	TextOut(_backBuffer->getMemDC(), WINSIZEX / 2 - 50, 30, debug[1], strlen(debug[1]));
 	TextOut(_backBuffer->getMemDC(), WINSIZEX / 2 - 50, 60, debug[2], strlen(debug[1]));
 	TextOut(_backBuffer->getMemDC(), WINSIZEX / 2 - 50, 90, error, strlen(error));
-	_ui.Render();
+	//_ui.Render();
 	_mainCam.camera->Render(hdc);
 	//this->getBackBuffer()->render(hdc, 0, 0);
 }

@@ -16,6 +16,10 @@ public:
     AnimationClip* jumpLeft;
     AnimationClip* wallRight;
     AnimationClip* wallLeft;
+    AnimationClip* groundRight;
+    AnimationClip* groundLeft;
+    AnimationClip* fallRight;
+    AnimationClip* fallLeft;
 
     virtual void Init();
     virtual void Update();

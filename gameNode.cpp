@@ -17,7 +17,7 @@ HRESULT gameNode::init()
 	SetTimer(_hWnd, 1, 10, NULL);
 	KEYMANAGER->init();
 	IMAGEMANAGER->init();
-
+	TAGMANAGER->init();
 
 	return S_OK;
 }
@@ -32,6 +32,7 @@ HRESULT gameNode::init(bool managerInit)
 		SetTimer(_hWnd, 1, 10, NULL);
 		KEYMANAGER->init();
 		IMAGEMANAGER->init();
+		TAGMANAGER->init();
 	}
 
 	return S_OK;
@@ -45,6 +46,9 @@ void gameNode::release()
 
 	COLLIDERMANAGER->release();
 	COLLIDERMANAGER->releaseSingleton();
+
+	TAGMANAGER->release();
+	TAGMANAGER->releaseSingleton();
 }
 
 void gameNode::update()

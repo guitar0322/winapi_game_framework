@@ -19,6 +19,7 @@
 #include "ColliderManager.h"
 #include "ImageManager.h"
 #include "CameraManager.h"
+#include "TagManager.h"
 #include "utils.h"
 
 using namespace std;
@@ -42,7 +43,7 @@ using namespace HDY_UTIL;
 #define IMAGEMANAGER ImageManager::getSingleton()
 #define COLLIDERMANAGER ColliderManager::getSingleton()
 #define CAMERAMANAGER CameraManager::getSingleton()
-
+#define TAGMANAGER TagManager::getSingleton()
 
 #define SAFE_DELETE(p) {if(p) {delete(p); (p) = nullptr;}}
 

@@ -77,6 +77,8 @@ public:
 	vector<Component*> components;
 	GameObject();
 	~GameObject();
+	bool isActive;
+	int tag;
 	void Init();
 	void Update();
 	void Render();
@@ -90,6 +92,8 @@ public:
 	void OnTriggerEnter(GameObject* gameObject);
 	void OnTriggerStay(GameObject* gameObject);
 	void OnTriggerExit(GameObject* gameObject);
+	
+	void SetActive(bool active) { isActive = active; }
 };
 
 template<typename T>
