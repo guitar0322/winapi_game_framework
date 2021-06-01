@@ -4,12 +4,13 @@
 void PlayerControler::Init()
 {
 	jumpPower = 0;
-	gravity = 0.3f;
+	gravity = 12.0f;
 	dir = false;//false 면 오른쪽 true면 왼쪽
 	isJump = false;
 	animator = gameObject->GetComponent<Animator>();
 	state = IDLE_RIGHT;
 	collider = gameObject->GetComponent<BoxCollider>();
+	speed = 100;
 }
 
 void PlayerControler::Update()
@@ -154,8 +155,8 @@ void PlayerControler::Update()
 	}
 	bool isMoveX;
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT)) {
-		isMoveX = transform->MoveX(3);
-		if (isMoveX == false && state == JUMP_RIGHT) {
+		isMoveX = transform->MoveX(speed * TIMEMANAGER->getElapsedTime());
+		if (isMoveX == false && (state == JUMP_RIGHT || state == FALL_RIGHT)) {
 			state = WALL_RIGHT;
 			animator->SetClip(animator->GetClip("wall_right"));
 			isWall = true;
@@ -163,8 +164,8 @@ void PlayerControler::Update()
 		}
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT)) {
-		isMoveX = transform->MoveX(-3);
-		if (isMoveX == false && state == JUMP_LEFT) {
+		isMoveX = transform->MoveX(-(speed * TIMEMANAGER->getElapsedTime()));
+		if (isMoveX == false && (state == JUMP_LEFT || state == FALL_LEFT)) {
 			state = WALL_LEFT;
 			animator->SetClip(animator->GetClip("wall_left"));
 			isWall = true;
@@ -185,7 +186,7 @@ void PlayerControler::Update()
 		}
 	}
 	if (isJump == true && isWall == false) {
-		jumpPower -= gravity;
+		jumpPower -= gravity * TIMEMANAGER->getElapsedTime();
 		if (jumpPower < 0 && jumpPower >= -gravity) {
 			if (dir == false) {
 				isWall = false;
@@ -212,12 +213,12 @@ void PlayerControler::Update()
 		}
 		transform->MoveX(-wallJumpPower);
 		if (wallJumpPower > 0) {
-			wallJumpPower -= gravity;
+			wallJumpPower -= gravity * TIMEMANAGER->getElapsedTime();
 			if (wallJumpPower < 0)
 				wallJumpPower = 0;
 		}
 		if (wallJumpPower < 0) {
-			wallJumpPower += gravity;
+			wallJumpPower += gravity * TIMEMANAGER->getElapsedTime();
 			if (wallJumpPower > 0)
 				wallJumpPower = 0;
 		}

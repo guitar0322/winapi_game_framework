@@ -20,6 +20,8 @@
 #include "ImageManager.h"
 #include "CameraManager.h"
 #include "TagManager.h"
+#include "TextDataManager.h"
+#include "TimeManager.h"
 #include "utils.h"
 
 using namespace std;
@@ -44,6 +46,8 @@ using namespace HDY_UTIL;
 #define COLLIDERMANAGER ColliderManager::getSingleton()
 #define CAMERAMANAGER CameraManager::getSingleton()
 #define TAGMANAGER TagManager::getSingleton()
+#define DATAMANAGER TextDataManager::getSingleton()
+#define TIMEMANAGER TimeManager::getSingleton()
 
 #define SAFE_DELETE(p) {if(p) {delete(p); (p) = nullptr;}}
 
@@ -57,3 +61,4 @@ extern HWND _hWnd;
 extern POINT _ptMouse;
 extern char debug[3][128];
 extern char error[128];
+extern HDC _hdc;

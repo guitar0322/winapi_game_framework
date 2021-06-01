@@ -6,7 +6,6 @@ enum SHAPE {
 	HALF
 };
 struct Particle {
-	image* img;
 	float x, y;
 	int activeTime;
 	int duration;
@@ -14,6 +13,8 @@ struct Particle {
 	float gravity;
 	float angle;
 	bool isEmission;
+	int curFrame;
+	int frameTick;
 };
 
 class ParticleSystem :
@@ -29,6 +30,7 @@ private:
 	int _deltaTime;
 	int _interval;
 	int _minDuration, _maxDuration;
+	int _frameTerm;
 	bool _isLoop;
 	float _minSpeed, _maxSpeed;
 	float _minAngle, _maxAngle;
@@ -36,7 +38,7 @@ private:
 	void Emission(int idx);
 	void EmissionAll();
 public:
-	ParticleSystem(image* particleImage, int num);
+	ParticleSystem(image* particleImage, int num, int frameTerm);
 	~ParticleSystem();
 	virtual void Update();
 	virtual void Render();
@@ -65,6 +67,6 @@ public:
 	void SetLoop(bool isLoop) { _isLoop = isLoop; }
 
 	void SetGravity(float gravity) { _gravity = gravity; }
-
+	void SetParticleImage(image* newImage) { _particleImage = newImage; }
 };
 

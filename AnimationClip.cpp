@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "AnimationClip.h"
 
-HRESULT AnimationClip::Init(const char* filename, int width, int height, int frameNum, int frameTerm)
+HRESULT AnimationClip::Init(const char* filename, int width, int height, int frameNum, float frameTerm)
 {
 	HDC hdc = GetDC(_hWnd);
 	wholeDC = CreateCompatibleDC(hdc);

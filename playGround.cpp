@@ -18,6 +18,18 @@ HRESULT playGround::init()
 	gameNode::init();
 	_camShakeFrame = 0;
 	_mainCam.transform->SetX(_mainCam.transform->GetX() + 100);
+	testParticle = new image();
+	testParticle->init("full_charge_hit_effect_left.bmp", 240, 88, 4, 1, true, RGB(255, 0, 255));
+	testParticle2 = new image();
+	testParticle2->init("trap_blast_projectile.bmp", 168, 50, 4, 1, true, RGB(255, 0, 255));
+
+	particleObj.AddComponent(new ParticleSystem(testParticle, 5, 5));
+	demoParticleSys = particleObj.GetComponent<ParticleSystem>();
+	demoParticleSys->SetPosition(WINSIZEX / 2, WINSIZEY / 2);
+	demoParticleSys->SetInterval(1000);
+	demoParticleSys->SetDuration(150);
+	demoParticleSys->SetSpeed(0);
+	demoParticleSys->SetLoop(true);
 
 	_rockMan = new RockMan();
 	_rockMan->Init();
@@ -62,6 +74,10 @@ void playGround::release()
 void playGround::update()
 {
 	gameNode::update();
+	changeParticleTime++;
+	if (changeParticleTime == 300) {
+		demoParticleSys->SetParticleImage(testParticle2);
+	}
 	//_camShakeFrame++;
 	//if (_camShakeFrame == 100) {
 	//	_mainCam.camera->ShakeOff();
@@ -78,6 +94,7 @@ void playGround::update()
 	_airObj.Update();
 	_ground->Update();
 	_mainCam.Update();
+	demoParticleSys->Update();
 	deltaTime = curTime - oldTime;
 	//_alphaFrame++;
 	//if (_alphaFrame == 5) {
@@ -89,7 +106,7 @@ void playGround::update()
 }
 
 //여기에다 그려라 좀! 쫌!
-void playGround::render(HDC hdc)
+void playGround::render()
 {
 	PatBlt(getMemDC(), 0, 0, MAPSIZEX, MAPSIZEY, WHITENESS);
 	// 위에 건들지마라
@@ -99,6 +116,8 @@ void playGround::render(HDC hdc)
 	_bigObj.Render();
 	_airObj.Render();
 	_ground->Render();
+	demoParticleSys->Render();
+
 	//==================================================
 	//여기도 건들지마라
 	TextOut(_backBuffer->getMemDC(), _mainCam.transform->GetX() - 50, _mainCam.transform->GetY() - WINSIZEY/2, debug[0], strlen(debug[0]));
@@ -106,6 +125,6 @@ void playGround::render(HDC hdc)
 	TextOut(_backBuffer->getMemDC(), WINSIZEX / 2 - 50, 60, debug[2], strlen(debug[1]));
 	TextOut(_backBuffer->getMemDC(), WINSIZEX / 2 - 50, 90, error, strlen(error));
 	//_ui.Render();
-	_mainCam.camera->Render(hdc);
+	_mainCam.camera->Render(_hdc);
 	//this->getBackBuffer()->render(hdc, 0, 0);
 }

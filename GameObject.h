@@ -73,10 +73,10 @@ class GameObject
 private:
 	int component_num;
 public:
-	Transform* transform;
-	vector<Component*> components;
 	GameObject();
 	~GameObject();
+	Transform* transform;
+	vector<Component*> components;
 	bool isActive;
 	int tag;
 	void Init();

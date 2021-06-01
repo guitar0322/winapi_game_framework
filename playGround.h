@@ -17,6 +17,11 @@ public:
 	Cam _mainCam;
 	UIBase _ui;
 	Text text;
+	GameObject particleObj;
+	ParticleSystem* demoParticleSys;
+	image* testParticle2;
+	image* testParticle;
+	int changeParticleTime;
 	int _camShakeFrame;
 	int _alphaFrame;
 	playGround();
@@ -24,6 +29,6 @@ public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
-	virtual void render(HDC hdc);
+	virtual void render();
 };
 

@@ -17,7 +17,7 @@ private:
         AnimationClip* nextClip;
     }TRANSACTION;
 private:
-    int frameStack;
+    float frameTime;
 public:
     Animator();
     ~Animator();

@@ -5,7 +5,7 @@
 class gameNode
 {
 private:
-	HDC _hdc;
+	//HDC _hdc;
 	bool _managerInit;
 public:
 	gameNode();
@@ -23,7 +23,7 @@ public:
 	image* getBackBuffer() { return _backBuffer; }
 
 	HDC getMemDC() { return _backBuffer->getMemDC(); }
-	HDC getHDC() { return _hdc; }
+	//HDC getHDC() { return _hdc; }
 
 	LRESULT MainProc(HWND, UINT, WPARAM, LPARAM);
 };

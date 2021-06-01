@@ -3,7 +3,7 @@
 #include "image.h"
 
 
-ParticleSystem::ParticleSystem(image* particleImage, int num)
+ParticleSystem::ParticleSystem(image* particleImage, int num, int frameTerm)
 {
 	_particleImage = particleImage;
 	_num = num;
@@ -14,10 +14,11 @@ ParticleSystem::ParticleSystem(image* particleImage, int num)
 	_isLoop = true;
 	_isStop = false;
 	_gravity = 0;
+	_frameTerm = frameTerm;
 	for (int i = 0; i < _num; i++) {
 		_particle.push_back(Particle());
-		_particle[i].img = this->_particleImage;
 		_particle[i].isEmission = false;
+		_particle[i].curFrame = 0;
 	}
 }
 
@@ -34,6 +35,7 @@ void ParticleSystem::Emission(int idx)
 		else {
 			_particle[idx].angle = RND->getFromFloatTo(_minAngle, _maxAngle);
 		}
+		//_particle[idx].img = _particleImage;
 		_particle[idx].x = this->_x;
 		_particle[idx].y = this->_y;
 		_particle[idx].isEmission = true;
@@ -77,6 +79,13 @@ void ParticleSystem::Update()
 	for (int i = 0; i < _num; i++) {
 		if (_particle[i].isEmission == false) continue;
 		_particle[i].activeTime += 10;
+		_particle[i].frameTick++;
+		if (_particle[i].frameTick == _frameTerm) {
+			_particle[i].frameTick = 0;
+			_particle[i].curFrame++;
+			if (_particle[i].curFrame == _particleImage->getMaxFrameX())
+				_particle[i].curFrame = 0;
+		}
 		if (_particle[i].activeTime >= _particle[i].duration) {
 			_particle[i].isEmission = false;
 		}
@@ -90,7 +99,7 @@ void ParticleSystem::Render()
 {
 	for (int i = 0; i < _num; i++) {
 		if (_particle[i].isEmission == false) continue;
-		_particle[i].img->render(_backBuffer->getMemDC(), _particle[i].x, _particle[i].y);
+		_particleImage->frameRender(_backBuffer->getMemDC(), _particle[i].x, _particle[i].y, _particle[i].curFrame, 0);
 	}
 }
 

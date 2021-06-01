@@ -4,6 +4,7 @@
 HINSTANCE _hInstance;
 HWND _hWnd;
 POINT _ptMouse;
+HDC _hdc;
 char debug[3][128];
 char error[128];
 playGround _pg;
@@ -52,6 +53,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		hInstance,
 		NULL);
 
+	_hdc = GetDC(_hWnd);
 	setWindowsSize(WINSTARTX, WINSTARTY, WINSIZEX, WINSIZEY);
 
 	//윈도우를 정말 화면에 띄워준다
@@ -61,13 +63,27 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	{
 		return NULL;
 	}
-
-	//
-	while (GetMessage(&message, 0, 0, 0))
+	while (true)
 	{
-		TranslateMessage(&message);
-		DispatchMessage(&message);
+		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+		{
+			if (message.message == WM_QUIT) break;
+			TranslateMessage(&message);
+			DispatchMessage(&message);
+		}
+		else
+		{
+			TIMEMANAGER->update(60.0f);
+			_pg.render();
+			_pg.update();
+		}
 	}
+	//
+	//while (GetMessage(&message, 0, 0, 0))
+	//{
+	//	TranslateMessage(&message);
+	//	DispatchMessage(&message);
+	//}
 
 	_pg.release();
 

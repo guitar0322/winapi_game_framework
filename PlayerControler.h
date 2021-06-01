@@ -24,6 +24,7 @@ public:
     enumState state;
     float gravity;
     float jumpPower;
+    float speed;
     float wallJumpPower;
     bool isJump;
     bool isWall;

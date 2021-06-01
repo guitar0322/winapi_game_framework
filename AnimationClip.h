@@ -5,12 +5,12 @@ public:
 	HDC wholeDC;
 	HBITMAP hBit, oBit;
 	int frameNum;
-	int frameTerm;
+	float frameTerm;
 	int frameWidth;
 	int frameHeight;
 	int currentFrame;
 	bool isLoop;
-	HRESULT Init(const char* filename, int width, int height, int frameNum, int frameTerm);
+	HRESULT Init(const char* filename, int width, int height, int frameNum, float frameTerm);
 	AnimationClip();
 	~AnimationClip();
 };
