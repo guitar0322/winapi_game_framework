@@ -26,8 +26,8 @@ void BoxCollider::Update()
 	for (int i = 0; i < vCol.size(); i++) {
 		bool isExist = false;
 		for (int j = 0; j < prevCol.size(); j++) {
-			 if(vCol[j] == prevCol[i]) {
-				gameObject->OnTriggerStay(COLLIDERMANAGER->colliderList[prevCol[i]]->gameObject);
+			 if(vCol[i] == prevCol[j]) {
+				gameObject->OnTriggerStay(COLLIDERMANAGER->colliderList[prevCol[j]]->gameObject);
 				isExist = true;
 				break;
 			}

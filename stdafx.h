@@ -22,6 +22,7 @@
 #include "TagManager.h"
 #include "TextDataManager.h"
 #include "TimeManager.h"
+#include "SceneManager.h"
 #include "utils.h"
 
 using namespace std;
@@ -34,8 +35,8 @@ using namespace HDY_UTIL;
 #define WINNAME (LPTSTR)(TEXT("28기 API"))
 #define WINSTARTX 200	//윈도우 창 시작좌표 (left)
 #define WINSTARTY 50	//윈도우 창 시작좌표 (top)
-#define WINSIZEX 1024	//윈도우 가로크기
-#define WINSIZEY 600	//윈도우 세로크기
+#define WINSIZEX 640	//윈도우 가로크기
+#define WINSIZEY 480	//윈도우 세로크기
 #define WINSTYLE WS_CAPTION | WS_SYSMENU
 #define MAPSIZEX 4023
 #define MAPSIZEY 3024
@@ -48,6 +49,7 @@ using namespace HDY_UTIL;
 #define TAGMANAGER TagManager::getSingleton()
 #define DATAMANAGER TextDataManager::getSingleton()
 #define TIMEMANAGER TimeManager::getSingleton()
+#define SCENEMANAGER SceneManager::getSingleton()
 
 #define SAFE_DELETE(p) {if(p) {delete(p); (p) = nullptr;}}
 

@@ -20,7 +20,7 @@ public:
     AnimationClip* groundLeft;
     AnimationClip* fallRight;
     AnimationClip* fallLeft;
-
+    AnimationClip* intro;
     virtual void Init();
     virtual void Update();
     virtual void Render();

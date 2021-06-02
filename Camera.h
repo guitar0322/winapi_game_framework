@@ -46,5 +46,6 @@ public:
 	int GetRenderWidth() { return _renderWidth; }
 	int GetRenderHeight() { return _renderHeight; }
 	pair<int, int> GetRenderSize() { return { _renderWidth, _renderHeight }; }
+	void SetMapSize(int width, int height) { _maxX = width; _maxY = height; }
 };
 

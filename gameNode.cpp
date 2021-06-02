@@ -19,7 +19,7 @@ HRESULT gameNode::init()
 	IMAGEMANAGER->init();
 	TAGMANAGER->init();
 	TIMEMANAGER->init();
-
+	SCENEMANAGER->Init();
 	return S_OK;
 }
 
@@ -35,6 +35,7 @@ HRESULT gameNode::init(bool managerInit)
 		IMAGEMANAGER->init();
 		TAGMANAGER->init();
 		TIMEMANAGER->init();
+		SCENEMANAGER->Init();
 	}
 
 	return S_OK;
@@ -54,6 +55,9 @@ void gameNode::release()
 
 	TIMEMANAGER->release();
 	TIMEMANAGER->releaseSingleton();
+
+	SCENEMANAGER->Release();
+	SCENEMANAGER->releaseSingleton();
 }
 
 void gameNode::update()

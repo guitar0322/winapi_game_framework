@@ -1,6 +1,5 @@
 #pragma once
 #include "gameNode.h"
-#include "RockMan.h"
 class playGround : public gameNode
 {
 private:
@@ -9,12 +8,7 @@ private:
 public:
 	int frame;
 	int x, y;
-	RockMan* _rockMan;
-	Box _smallObj;
-	Box _bigObj;
-	Box _airObj;
-	GameObject* _ground;
-	Cam _mainCam;
+	Cam _mainCams;
 	UIBase _ui;
 	Text text;
 	GameObject particleObj;

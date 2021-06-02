@@ -12,6 +12,7 @@ void RockMan::Init()
     animator->Init();
     controler = (PlayerControler*)AddComponent(new PlayerControler());
     controler->Init();
+    tag = TAGMANAGER->GetTag("player");
     InitClip();
 }
 
@@ -71,6 +72,10 @@ void RockMan::InitClip()
     fallLeft->Init("fall_left.bmp", 272, 114, 4, 0.10f);
     fallLeft->isLoop = false;
     
+    intro = new AnimationClip();
+    intro->Init("intro.bmp", 1920, 144, 15, 0.10f);
+    intro->isLoop = false;
+
     animator->AddClip("idle_right", idleRight);
     animator->AddClip("idle_left", idleLeft);
     animator->AddClip("run_right", runRight);
@@ -83,6 +88,7 @@ void RockMan::InitClip()
     animator->AddClip("ground_left", groundLeft);
     animator->AddClip("fall_right", fallRight);
     animator->AddClip("fall_left", fallLeft);
+    animator->AddClip("intro", intro);
 
     animator->AddTransaction("ground_idle_right", groundRight, idleRight);
     animator->AddTransaction("ground_idle_left", groundLeft, idleLeft);
